@@ -76,7 +76,8 @@ function combatRound(attacker, defender, useSpark = false, roundNumber) {
     const attackValue = attacker.attack(useSpark, roundNumber);
     const defenseValue = defender.defend(roundNumber);
     if (roundNumber == 0) {
-        if (defender.takeDamage(attackValue, 0)) {
+        // Adding attacker.dexterity here if you have the best route story-wise
+        if (defender.takeDamage(attackValue + attacker.dexterity, 0)) {
             console.log(`${defender.name} е повален!`);
             return true;
         }
@@ -160,7 +161,7 @@ function runMultipleBattles(numBattles) {
     let heroWins = 0;
     let enemyWins = 0;
     for (let i = 0; i < numBattles; i++) {
-        let hero = new Character("Хирул", 14, 2, 0, 0, { dice: 1, modifier: 2 }, true, false, false, 5, 0, false, false);
+        let hero = new Character("Хирул", 14, 2, 0, 0, { dice: 1, modifier: 2 }, true, false, false, 3, 0, false, false);
         let enemy = new Character("Зодаир", 30, 2, 0, 3, { dice: 2, modifier: 0 }, true, false, false, 0, 2, true, false);
         let winner = combatSimulationQuick(hero, enemy, true, false);  // false for verbosity
         if (winner === "Хирул") {
